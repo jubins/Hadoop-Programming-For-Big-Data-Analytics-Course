@@ -1,0 +1,104 @@
+/*
+Name: Jubin Soni (jas1464)
+CS9223: FA16: Programming for Big Data Analytics
+Assignment 1
+*/
+
+INPUT:
+[cloudera@quickstart MapReduce]$ hdfs dfs -put tempInputData.txt /user/cloudera/FAassignment1
+[cloudera@quickstart MapReduce]$ hdfs dfs -cat /user/cloudera/FAassignment1/tempInputData.txt
+0067011990999991950051507004...9999999N9+00001+99999999999...
+0043011990999991950051512004...9999999N9+00221+99999999999...
+0043011990999991950051518004...9999999N9-00111+99999999999...
+0043012650999991949032412004...0500001N9+01111+99999999999...
+0043012650999991949032418004...0500001N9+00781+99999999999...
+
+
+OUTPUT:
+
+[cloudera@quickstart MapReduce]$ hadoop jar maxTemp.jar MaxTemperature /user/cloudera/FAassignment1/tempInputData.txt /user/cloudera/FAassignment1/output
+16/09/13 22:14:19 INFO client.RMProxy: Connecting to ResourceManager at /0.0.0.0:8032
+16/09/13 22:14:20 WARN mapreduce.JobResourceUploader: Hadoop command-line option parsing not performed. Implement the Tool interface and execute your application with ToolRunner to remedy this.
+16/09/13 22:14:20 INFO input.FileInputFormat: Total input paths to process : 1
+16/09/13 22:14:20 INFO mapreduce.JobSubmitter: number of splits:1
+16/09/13 22:14:21 INFO mapreduce.JobSubmitter: Submitting tokens for job: job_1473781425531_0003
+16/09/13 22:14:21 INFO impl.YarnClientImpl: Submitted application application_1473781425531_0003
+16/09/13 22:14:21 INFO mapreduce.Job: The url to track the job: http://quickstart.cloudera:8088/proxy/application_1473781425531_0003/
+16/09/13 22:14:21 INFO mapreduce.Job: Running job: job_1473781425531_0003
+16/09/13 22:14:31 INFO mapreduce.Job: Job job_1473781425531_0003 running in uber mode : false
+16/09/13 22:14:31 INFO mapreduce.Job:  map 0% reduce 0%
+16/09/13 22:14:46 INFO mapreduce.Job:  map 100% reduce 0%
+16/09/13 22:14:56 INFO mapreduce.Job:  map 100% reduce 100%
+16/09/13 22:14:56 INFO mapreduce.Job: Job job_1473781425531_0003 completed successfully
+16/09/13 22:14:56 INFO mapreduce.Job: Counters: 49
+	File System Counters
+		FILE: Number of bytes read=61
+		FILE: Number of bytes written=232727
+		FILE: Number of read operations=0
+		FILE: Number of large read operations=0
+		FILE: Number of write operations=0
+		HDFS: Number of bytes read=455
+		HDFS: Number of bytes written=17
+		HDFS: Number of read operations=6
+		HDFS: Number of large read operations=0
+		HDFS: Number of write operations=2
+	Job Counters 
+		Launched map tasks=1
+		Launched reduce tasks=1
+		Data-local map tasks=1
+		Total time spent by all maps in occupied slots (ms)=13062
+		Total time spent by all reduces in occupied slots (ms)=7234
+		Total time spent by all map tasks (ms)=13062
+		Total time spent by all reduce tasks (ms)=7234
+		Total vcore-seconds taken by all map tasks=13062
+		Total vcore-seconds taken by all reduce tasks=7234
+		Total megabyte-seconds taken by all map tasks=13375488
+		Total megabyte-seconds taken by all reduce tasks=7407616
+	Map-Reduce Framework
+		Map input records=5
+		Map output records=5
+		Map output bytes=45
+		Map output materialized bytes=61
+		Input split bytes=142
+		Combine input records=0
+		Combine output records=0
+		Reduce input groups=2
+		Reduce shuffle bytes=61
+		Reduce input records=5
+		Reduce output records=2
+		Spilled Records=10
+		Shuffled Maps =1
+		Failed Shuffles=0
+		Merged Map outputs=1
+		GC time elapsed (ms)=334
+		CPU time spent (ms)=1230
+		Physical memory (bytes) snapshot=327655424
+		Virtual memory (bytes) snapshot=3007582208
+		Total committed heap usage (bytes)=226365440
+	Shuffle Errors
+		BAD_ID=0
+		CONNECTION=0
+		IO_ERROR=0
+		WRONG_LENGTH=0
+		WRONG_MAP=0
+		WRONG_REDUCE=0
+	File Input Format Counters 
+		Bytes Read=313
+	File Output Format Counters 
+		Bytes Written=17
+
+[cloudera@quickstart MapReduce]$ 
+
+
+VERIFICATION and RESULTS:
+
+[cloudera@quickstart MapReduce]$ hdfs dfs -ls /user/cloudera/FAassignment1/output
+Found 2 items
+-rw-r--r--   1 cloudera cloudera          0 2016-09-13 22:14 /user/cloudera/FAassignment1/output/_SUCCESS
+-rw-r--r--   1 cloudera cloudera         17 2016-09-13 22:14 /user/cloudera/FAassignment1/output/part-r-00000
+
+[cloudera@quickstart MapReduce]$ hdfs dfs -cat /user/cloudera/FAassignment1/output/part-r-00000
+1949	111
+1950	22
+
+[cloudera@quickstart MapReduce]$ 
